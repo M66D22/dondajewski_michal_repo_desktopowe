@@ -5,6 +5,11 @@
  */
 package com.mycompany.wlasnykalkulator;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Michał
@@ -47,6 +52,10 @@ public class MainWindow extends javax.swing.JFrame {
         jButtonRownaSie = new javax.swing.JButton();
         jButtonClear = new javax.swing.JButton();
         jButtonPotega = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -270,6 +279,23 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Tools");
+
+        jMenuItem1.setText("Ile dni pomiedzy datami");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -436,6 +462,21 @@ public class MainWindow extends javax.swing.JFrame {
         jTextField1.setText(ActiveText);
     }//GEN-LAST:event_jButtonClearActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        DateTimeFormatter formatter  = DateTimeFormatter.ofPattern("dd MM yyyy");
+
+        String data = JOptionPane.showInputDialog("Wprowadz date w formacie dd mm yyyy np: 01 01 2000");
+        if(data != null && data.length()== 10){
+             //nf_jTextFieldObliczenia.setText(data);
+        LocalDate ldnow = LocalDate.now();
+        LocalDate ldinput = LocalDate.parse(data, formatter);
+        //nf_jTextFieldObliczenia.setText(ldnow + " " + ldinput);
+        long days = ChronoUnit.DAYS.between(ldinput, ldnow);
+        //nf_jTextFieldObliczenia.setText("Ilosc dni: " + days);
+        JOptionPane.showMessageDialog(rootPane,days + " dni","Ilość dni", HEIGHT);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -490,6 +531,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButtonPierwiastkowanie;
     private javax.swing.JButton jButtonPotega;
     private javax.swing.JButton jButtonRownaSie;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
