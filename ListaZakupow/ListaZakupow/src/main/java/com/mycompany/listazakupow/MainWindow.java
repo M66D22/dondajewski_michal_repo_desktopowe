@@ -203,7 +203,7 @@ public class MainWindow extends javax.swing.JFrame {
     String coKupiles,Cena, Data, Typ;
     float Wartosc;
     String zapis;
-    String AktualnyText ="";
+    String AktualnyText = "";
     private void md_jButtonZapiszActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_md_jButtonZapiszActionPerformed
             coKupiles = md_jTextFieldWpiszCoKupiles.getText();
             Cena = md_jTextFieldPodajWartosc.getText();
@@ -249,7 +249,8 @@ public class MainWindow extends javax.swing.JFrame {
             public void keyTyped(KeyEvent e) {
                 char znak = e.getKeyChar();
                 if (znak == '0' || znak == '1' || znak == '2' || znak == '3' || znak == '4' || znak == '5' || znak == '6' || znak == '7' || znak == '8' || znak == '9'){
-                    System.out.println("Dobry znak");
+                    System.out.println("Naciśnięto cyfrę: "+znak);
+                    
                 }
                 else {
                     System.out.println("Zły znak");
