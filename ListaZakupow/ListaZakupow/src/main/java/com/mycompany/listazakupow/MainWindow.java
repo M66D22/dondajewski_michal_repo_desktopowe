@@ -21,6 +21,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         addKeyListrenerTo_md_jTextFieldWpiszCoKupiles();
         addKeyListenerTo_md_jTextFieldPodajWartosc();
+        addKeyLitenerTo_md_jTextFieldPodajDate();
     }
 
     /**
@@ -56,6 +57,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         md_jLabelWpiszCoKupiles.setText("Wpisz co kupiłeś");
 
@@ -119,16 +121,15 @@ public class MainWindow extends javax.swing.JFrame {
                                         .addComponent(md_jLabelDataZakupu)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(md_jTextFieldDataZakupu)))
-                            .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
-                                    .addComponent(md_jLabelWydastkiZTygodnia)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(md_jTextFieldWydatkiZTygodnia))
-                                .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
-                                    .addComponent(md_jLabelWydatkiZDzisiaj)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(md_jTextFieldWydatkiZDzisiaj, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))))))
+                            .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
+                                .addComponent(md_jLabelWydastkiZTygodnia)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(md_jTextFieldWydatkiZTygodnia))
+                            .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
+                                .addComponent(md_jLabelWydatkiZDzisiaj)
+                                .addGap(18, 18, 18)
+                                .addComponent(md_jTextFieldWydatkiZDzisiaj, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         md_jPanelWprowadzZakupyLayout.setVerticalGroup(
@@ -201,13 +202,13 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     String coKupiles,Cena, Data, Typ;
-    float Wartosc;
+    int Wartosc;
     String zapis;
     String AktualnyText = "";
     private void md_jButtonZapiszActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_md_jButtonZapiszActionPerformed
             coKupiles = md_jTextFieldWpiszCoKupiles.getText();
             Cena = md_jTextFieldPodajWartosc.getText();
-            Wartosc = Float.parseFloat(Cena);
+            Wartosc = Integer.parseInt(Cena);
             Typ = (String) md_jComboBoxTypZakupu.getSelectedItem();
             Data = md_jTextFieldDataZakupu.getText();
             
@@ -248,12 +249,13 @@ public class MainWindow extends javax.swing.JFrame {
             @Override
             public void keyTyped(KeyEvent e) {
                 char znak = e.getKeyChar();
-                if (znak == '0' || znak == '1' || znak == '2' || znak == '3' || znak == '4' || znak == '5' || znak == '6' || znak == '7' || znak == '8' || znak == '9'){
-                    System.out.println("Naciśnięto cyfrę: "+znak);
-                    
+                if (znak >= '0' && znak <= '9' || znak == KeyEvent.VK_BACK_SPACE){
+                    //Wpisany dobry znak
+                    md_jTextFieldPodajWartosc.setEditable(true);   
                 }
                 else {
-                    System.out.println("Zły znak");
+                    //Wpisany zły znak
+                    md_jTextFieldPodajWartosc.setEditable(false);
                 }
             }
 
@@ -266,6 +268,33 @@ public class MainWindow extends javax.swing.JFrame {
             public void keyReleased(KeyEvent e) {
                 
             }
+        });
+    }
+    
+    private void addKeyLitenerTo_md_jTextFieldPodajDate() {
+        md_jTextFieldDataZakupu.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char znak = e.getKeyChar();
+                if (znak >= '0' && znak <= '9' || znak == KeyEvent.VK_BACK_SPACE){
+                    //Wpisany dobry znak
+                    md_jTextFieldDataZakupu.setEditable(true);   
+                }
+                else {
+                    //Wpisany zły znak
+                    md_jTextFieldDataZakupu.setEditable(false);
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                
+            } 
         });
     }
     
