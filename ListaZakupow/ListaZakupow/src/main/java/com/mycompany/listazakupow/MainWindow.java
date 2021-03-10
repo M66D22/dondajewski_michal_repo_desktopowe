@@ -206,16 +206,21 @@ public class MainWindow extends javax.swing.JFrame {
     String zapis;
     String AktualnyText = "";
     private void md_jButtonZapiszActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_md_jButtonZapiszActionPerformed
-            coKupiles = md_jTextFieldWpiszCoKupiles.getText();
-            Cena = md_jTextFieldPodajWartosc.getText();
-            Wartosc = Integer.parseInt(Cena);
-            Typ = (String) md_jComboBoxTypZakupu.getSelectedItem();
-            Data = md_jTextFieldDataZakupu.getText();
-            
-            zapis = ""+coKupiles+", "+Wartosc+"zł, "+Typ+", "+Data +"\n";
-            md_jTextAreaMain.setText(AktualnyText+zapis);
-            AktualnyText = md_jTextAreaMain.getText();
-            zapis = "";
+        coKupiles = md_jTextFieldWpiszCoKupiles.getText();
+        Cena = md_jTextFieldPodajWartosc.getText();
+        Data = md_jTextFieldDataZakupu.getText();
+        Typ = (String) md_jComboBoxTypZakupu.getSelectedItem();
+        AktualnyText = md_jTextAreaMain.getText();
+        
+        zapis = ""+coKupiles+"; "+Cena+"; "+Typ+"; "+Data;
+        AktualnyText = AktualnyText + zapis + "\n";
+        md_jTextAreaMain.setText(AktualnyText);
+        
+        md_jTextFieldWpiszCoKupiles.setText("");
+        md_jTextFieldPodajWartosc.setText("");
+        md_jComboBoxTypZakupu.setSelectedIndex(0);
+        md_jTextFieldDataZakupu.setText("");
+        
     }//GEN-LAST:event_md_jButtonZapiszActionPerformed
     
     private void addKeyListrenerTo_md_jTextFieldWpiszCoKupiles(){
@@ -223,11 +228,19 @@ public class MainWindow extends javax.swing.JFrame {
             @Override
             public void keyTyped(KeyEvent e) {
                 char znak = e.getKeyChar();
-                int kod = e.getKeyCode();
+                int kod = (int) znak;
+                
                 
                 if(znak == KeyEvent.VK_ENTER){
                     System.out.println("Enter");
                     md_jTextAreaMain.setText(md_jTextFieldWpiszCoKupiles.getText());
+                }
+                
+                if (znak == KeyEvent.VK_SPACE || kod >= 97 && kod <= 199 || kod >= 65 && kod <= 89 || znak == KeyEvent.VK_BACK_SPACE){
+                    md_jTextFieldWpiszCoKupiles.setEditable(true);
+                }
+                else{
+                    md_jTextFieldWpiszCoKupiles.setEditable(false);
                 }
                 
             }
