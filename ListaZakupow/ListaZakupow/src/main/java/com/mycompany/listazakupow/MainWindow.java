@@ -205,6 +205,8 @@ public class MainWindow extends javax.swing.JFrame {
     int Wartosc;
     String zapis;
     String AktualnyText = "";
+    int dataCheck;
+    char znak;
     private void md_jButtonZapiszActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_md_jButtonZapiszActionPerformed
         coKupiles = md_jTextFieldWpiszCoKupiles.getText();
         Cena = md_jTextFieldPodajWartosc.getText();
@@ -271,7 +273,7 @@ public class MainWindow extends javax.swing.JFrame {
                     md_jTextFieldPodajWartosc.setEditable(false);
                 }
             }
-
+            
             @Override
             public void keyPressed(KeyEvent e) {
                 
@@ -289,7 +291,7 @@ public class MainWindow extends javax.swing.JFrame {
             @Override
             public void keyTyped(KeyEvent e) {
                 char znak = e.getKeyChar();
-                if (znak >= '0' && znak <= '9' || znak == KeyEvent.VK_BACK_SPACE){
+                if (znak >= '0' && znak <= '9' || znak == KeyEvent.VK_BACK_SPACE || znak == '.'){
                     //Wpisany dobry znak
                     md_jTextFieldDataZakupu.setEditable(true);   
                 }
@@ -297,7 +299,8 @@ public class MainWindow extends javax.swing.JFrame {
                     //Wpisany zły znak
                     md_jTextFieldDataZakupu.setEditable(false);
                 }
-            }
+            } 
+            
 
             @Override
             public void keyPressed(KeyEvent e) {
