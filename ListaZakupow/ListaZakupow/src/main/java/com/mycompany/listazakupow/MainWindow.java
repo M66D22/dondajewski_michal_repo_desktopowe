@@ -290,8 +290,13 @@ public class MainWindow extends javax.swing.JFrame {
         md_jTextFieldDataZakupu.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                String temp = md_jTextFieldDataZakupu.getText();
                 char znak = e.getKeyChar();
-                if (znak >= '0' && znak <= '9' || znak == KeyEvent.VK_BACK_SPACE || znak == '.'){
+                if ((znak >= '0' && znak <= '9' || znak == KeyEvent.VK_BACK_SPACE) && (temp.length() < 10) || znak == KeyEvent.VK_BACK_SPACE){
+                    md_jTextFieldDataZakupu.setEditable(true); 
+                    if ((temp.length() == 4 || temp.length() == 7) && znak != KeyEvent.VK_BACK_SPACE){
+                        md_jTextFieldDataZakupu.setText(temp+"-");
+                    }
                     //Wpisany dobry znak
                     md_jTextFieldDataZakupu.setEditable(true);   
                 }
