@@ -263,14 +263,33 @@ public class MainWindow extends javax.swing.JFrame {
         md_jTextFieldPodajWartosc.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                String temp = md_jTextFieldPodajWartosc.getText();
                 char znak = e.getKeyChar();
-                if (znak >= '0' && znak <= '9' || znak == KeyEvent.VK_BACK_SPACE){
-                    //Wpisany dobry znak
-                    md_jTextFieldPodajWartosc.setEditable(true);   
-                }
-                else {
-                    //Wpisany zły znak
-                    md_jTextFieldPodajWartosc.setEditable(false);
+                
+                System.out.println(temp.indexOf(","));
+                int indexPrzecinka = temp.indexOf(",");   
+                
+                if (temp.contains(",")){
+                    String[] splitted = temp.split(","); 
+                    if (splitted[1].length() < 2){
+                        if (znak >= '0' && znak <= '9' || znak == KeyEvent.VK_BACK_SPACE){
+                            //Wpisany dobry znak
+                            md_jTextFieldPodajWartosc.setEditable(true);   
+                        }
+                        else {
+                            //Wpisany zły znak
+                            md_jTextFieldPodajWartosc.setEditable(false);
+                        }                        
+                    }
+                } else{
+                    if (znak >= '0' && znak <= '9' || znak == ',' || znak == KeyEvent.VK_BACK_SPACE){
+                        //Wpisany dobry znak
+                        md_jTextFieldPodajWartosc.setEditable(true);   
+                    }
+                    else {
+                        //Wpisany zły znak
+                        md_jTextFieldPodajWartosc.setEditable(false);
+                    }
                 }
             }
             
@@ -281,7 +300,6 @@ public class MainWindow extends javax.swing.JFrame {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                
             }
         });
     }
