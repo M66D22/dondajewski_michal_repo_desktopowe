@@ -387,7 +387,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private void ileJestProduktow(){
-        howManyProducts hmp = new howManyProducts();
+        HowManyProducts hmp = new HowManyProducts();
         hmp.ileProduktow();
     }
     
