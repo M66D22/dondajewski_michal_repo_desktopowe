@@ -22,7 +22,7 @@ public class FileUtils {
         System.out.println(text);        
         try {
             FileWriter fw = new FileWriter(new File(file_name),true);
-            fw.write(text+"\n");
+            fw.write(text);
             fw.close();
         } catch (IOException ex) {
             System.out.println("Błąd "+ex);

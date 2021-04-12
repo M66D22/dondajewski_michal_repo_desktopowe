@@ -23,7 +23,7 @@ public class HowManyProducts {
         int ile = 0;
         try {
             Scanner sc = new Scanner(new File(file_name));
-            while (sc.hasNext()){
+            while (sc.hasNext() && !sc.equals(null)){
                 sc.nextLine();
                 ile++;
             }
