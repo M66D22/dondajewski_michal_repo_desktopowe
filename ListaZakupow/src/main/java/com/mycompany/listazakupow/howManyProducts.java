@@ -16,16 +16,15 @@ import java.util.logging.Logger;
  * @author Michał
  */
 public class howManyProducts {
-    private String file_name = "lista_zakupow.csv";
+    public String file_name = "lista_zakupow.csv";
     public void ileProduktow(){
         System.out.println("Dziala");
         int ile = 0;
         try {
             Scanner sc = new Scanner(new File(file_name));
-            while (sc.hasNext()){
-                System.out.println(".");
-
-            }
+            /*while (sc.hasNext()){
+            
+            }*/
             System.out.println("Laczna ilosc produktow wynosi: "+ile);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(howManyProducts.class.getName()).log(Level.SEVERE, null, ex);

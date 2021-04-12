@@ -37,7 +37,6 @@ public class FileUtils {
 //              String temp = sc.nextLine();
 //              temp = temp.replaceAll(";", "\t");
 //              message += temp+"\n"; 
-                System.out.println("-"); 
                 message += sc.nextLine().replaceAll(";", "\t")+"\n";
             }
             return message;

@@ -369,10 +369,6 @@ public class MainWindow extends javax.swing.JFrame {
             +"<h3>Podaj Typ Zakupu</h3>"
             +"<p>wybierz odpowidni typ towaru</p>"
             +"</html>");
-        md_jTextAreaMain.setToolTipText("<html>"
-            +"<h3>Wszystkie zakupy</h3>"
-            +"<p>Lista pokazujaca wszystko co zapisales w aplikacji</p>"
-            +"</html>");
     }
     
     private void fillCBProducts(){
