@@ -1,6 +1,10 @@
+com\mycompany\listazakupow\ArticleTypeUtils.class
+com\mycompany\listazakupow\FileUtils.class
 com\mycompany\listazakupow\MainWindow$1.class
 com\mycompany\listazakupow\MainWindow.class
-com\mycompany\listazakupow\MainWindow$2.class
-com\mycompany\listazakupow\MainWindow$5.class
 com\mycompany\listazakupow\MainWindow$4.class
 com\mycompany\listazakupow\MainWindow$3.class
+com\mycompany\listazakupow\howManyProducts.class
+com\mycompany\listazakupow\MainWindow$2.class
+com\mycompany\listazakupow\MainWindow$5.class
+com\mycompany\listazakupow\ArticleType.class

@@ -7,6 +7,14 @@ package com.mycompany.listazakupow;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -19,10 +27,17 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow() {
         initComponents();
+        
+        FileUtils fu = new FileUtils();
+        md_jTextAreaMain.setText(fu.readFromFile());
+        
         addKeyListrenerTo_md_jTextFieldWpiszCoKupiles();
         addKeyListenerTo_md_jTextFieldPodajWartosc();
         addKeyLitenerTo_md_jTextFieldPodajDate();
         addToolTipToElements();
+        fillCBProducts();
+        ileJestProduktow();
+        lacznaCenaProduktow();
     }
 
     /**
@@ -100,8 +115,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(md_jButtonZapisz))
                     .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
-                        .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1)
+                        .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
                                 .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(md_jLabelWpiszCoKupiles)
@@ -109,28 +123,25 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addGap(22, 22, 22)
                                 .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(md_jTextFieldPodajWartosc)
-                                    .addComponent(md_jLabelPodajWartosc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(18, 18, 18)
-                        .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
+                                    .addComponent(md_jLabelPodajWartosc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(md_jLabelTypZakupu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(md_jComboBoxTypZakupu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
+                                    .addComponent(md_jComboBoxTypZakupu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(md_jTextFieldWydatkiZTygodnia, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(md_jTextFieldWydatkiZDzisiaj, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
+                                .addComponent(md_jLabelDataZakupu)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(md_jTextFieldDataZakupu)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, md_jPanelWprowadzZakupyLayout.createSequentialGroup()
+                                .addGap(43, 43, 43)
                                 .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
-                                        .addComponent(md_jLabelDataZakupu)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(md_jTextFieldDataZakupu)))
-                            .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
-                                .addComponent(md_jLabelWydastkiZTygodnia)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(md_jTextFieldWydatkiZTygodnia))
-                            .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
-                                .addComponent(md_jLabelWydatkiZDzisiaj)
-                                .addGap(18, 18, 18)
-                                .addComponent(md_jTextFieldWydatkiZDzisiaj, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(md_jLabelWydastkiZTygodnia, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(md_jLabelWydatkiZDzisiaj, javax.swing.GroupLayout.Alignment.TRAILING))))))
                 .addContainerGap())
         );
         md_jPanelWprowadzZakupyLayout.setVerticalGroup(
@@ -156,13 +167,13 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(md_jPanelWprowadzZakupyLayout.createSequentialGroup()
-                        .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(md_jLabelWydatkiZDzisiaj)
-                            .addComponent(md_jTextFieldWydatkiZDzisiaj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(md_jLabelWydatkiZDzisiaj)
+                        .addGap(17, 17, 17)
+                        .addComponent(md_jTextFieldWydatkiZDzisiaj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(md_jLabelWydastkiZTygodnia)
                         .addGap(18, 18, 18)
-                        .addGroup(md_jPanelWprowadzZakupyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(md_jLabelWydastkiZTygodnia)
-                            .addComponent(md_jTextFieldWydatkiZTygodnia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(md_jTextFieldWydatkiZTygodnia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -172,7 +183,7 @@ public class MainWindow extends javax.swing.JFrame {
         md_jPanelListaZakupow.setLayout(md_jPanelListaZakupowLayout);
         md_jPanelListaZakupowLayout.setHorizontalGroup(
             md_jPanelListaZakupowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 535, Short.MAX_VALUE)
+            .addGap(0, 553, Short.MAX_VALUE)
         );
         md_jPanelListaZakupowLayout.setVerticalGroup(
             md_jPanelListaZakupowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,28 +213,32 @@ public class MainWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    String coKupiles,Cena, Data, Typ;
+    String coKupiles,cena, data, typ;
     int Wartosc;
     String zapis;
     String AktualnyText = "";
     int dataCheck;
     char znak;
     private void md_jButtonZapiszActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_md_jButtonZapiszActionPerformed
+        FileUtils stf = new FileUtils();
+        
         coKupiles = md_jTextFieldWpiszCoKupiles.getText();
-        Cena = md_jTextFieldPodajWartosc.getText();
-        Data = md_jTextFieldDataZakupu.getText();
-        Typ = (String) md_jComboBoxTypZakupu.getSelectedItem();
+        cena = md_jTextFieldPodajWartosc.getText();
+        data = md_jTextFieldDataZakupu.getText();
+        typ = (String) md_jComboBoxTypZakupu.getSelectedItem();
         AktualnyText = md_jTextAreaMain.getText();
         
-        zapis = ""+coKupiles+"; "+Cena+"; "+Typ+"; "+Data;
-        AktualnyText = AktualnyText + zapis + "\n";
-        md_jTextAreaMain.setText(AktualnyText);
+        zapis = ""+coKupiles.trim()+";"+cena.trim()+";"+typ.trim()+";"+data.trim()+"\n";
+        
+        String pokazWJArea = md_jTextAreaMain.getText() + zapis.replaceAll(";", "\t");
+        md_jTextAreaMain.setText(pokazWJArea);
         
         md_jTextFieldWpiszCoKupiles.setText("");
         md_jTextFieldPodajWartosc.setText("");
         md_jComboBoxTypZakupu.setSelectedIndex(0);
         md_jTextFieldDataZakupu.setText("");
         
+        stf.saveToFile(zapis);
     }//GEN-LAST:event_md_jButtonZapiszActionPerformed
     
     private void addKeyListrenerTo_md_jTextFieldWpiszCoKupiles(){
@@ -346,6 +361,42 @@ public class MainWindow extends javax.swing.JFrame {
             +"<p>Wpisuj tylko cyfry i myślniki</p>"
             +"<p>Format : rrrr-mm-dd</p>"
             +"</html>");
+        md_jButtonZapisz.setToolTipText("<html>"
+            +"<h3>Zapisz</h3>"
+            +"<p>zapisz elementy do pliku</p>"
+            +"</html>");
+        md_jComboBoxTypZakupu.setToolTipText("<html>"
+            +"<h3>Podaj Typ Zakupu</h3>"
+            +"<p>wybierz odpowidni typ towaru</p>"
+            +"</html>");
+        md_jTextAreaMain.setToolTipText("<html>"
+            +"<h3>Wszystkie zakupy</h3>"
+            +"<p>Lista pokazujaca wszystko co zapisales w aplikacji</p>"
+            +"</html>");
+    }
+    
+    private void fillCBProducts(){
+        Scanner sc;
+        try {
+            sc = new Scanner(new File(product_type));
+            md_jComboBoxTypZakupu.removeAllItems();
+            while (sc.hasNext()){
+                md_jComboBoxTypZakupu.addItem(sc.nextLine());
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ArticleTypeUtils atu = new ArticleTypeUtils();
+    }
+    
+    private void ileJestProduktow(){
+        howManyProducts hmp = new howManyProducts();
+        hmp.ileProduktow();
+    }
+    
+    private void lacznaCenaProduktow(){
+        
     }
     
     /**
@@ -381,8 +432,11 @@ public class MainWindow extends javax.swing.JFrame {
                 new MainWindow().setVisible(true);
             }
         });
-    }
-
+    }   
+    private String file_name = "lista_zakupow.csv";
+    private String product_name = "product_names.csv";
+    private String product_type = "products.txt";
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
